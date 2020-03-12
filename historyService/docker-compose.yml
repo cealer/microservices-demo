@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  historyservice.api:
+    image: ${DOCKER_REGISTRY-}historyserviceapi
+    build:
+      context: .
+      dockerfile: HistoryService/Dockerfile

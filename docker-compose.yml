@@ -1,0 +1,50 @@
+﻿version: '3.4'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.6.5-management
+    ports:
+      - "5672:5672"
+      - "15672:15672" #Management Server
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "password12347"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://rabbitmq:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5   
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example  
+
+  history-service-api:
+    image: history-service-api:latest
+    ports:
+      - "61945:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - Database=RecordsDb
+      - MongoDBUri=mongodb://root:example@mongo:27017
+      - RABBITMQ_URI=amqp://admin:password12347@rabbitmq:5672
+    depends_on:
+      - rabbitmq
+    links:
+      - rabbitmq
+
+  predictions-app:
+    image: predictions-app:latest
+    ports:
+      - "5000:5000"
+    environment:
+      RABBITMQ_URI: "amqp://admin:password12347@rabbitmq:5672"
+    restart: on-failure
+    depends_on:
+      - "rabbitmq"

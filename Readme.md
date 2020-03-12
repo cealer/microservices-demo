@@ -1,0 +1,1 @@
+docker build -f .\HistoryService\Dockerfile -t history-service-api .
