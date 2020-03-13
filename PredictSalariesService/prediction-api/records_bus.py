@@ -1,6 +1,7 @@
 import pika
 import sys
 import json
+from flask import current_app
 
 
 class Records_bus:
@@ -8,7 +9,7 @@ class Records_bus:
         self.userId = userId
         self.description = description
         self.uri = uri
-        self.uriRabbimq = 'amqp://molunfrm:2UB6c3rTGmH7hLaIqxKCinygyUGFPAqZ@salamander.rmq.cloudamqp.com/molunfrm'
+        self.uriRabbimq = current_app.config['RABBITMQ_URI']
 
     def publish(self):
         parameters = pika.URLParameters(self.uriRabbimq)

@@ -25,7 +25,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example  
 
   history-service-api:
-    image: history-service-api:latest
+    build:
+      context: ./historyService
+      dockerfile: ./HistoryService/Dockerfile
     ports:
       - "61945:80"
     environment:
@@ -40,7 +42,8 @@ services:
       - rabbitmq
 
   predictions-app:
-    image: predictions-app:latest
+    build:
+      context: ./PredictSalariesService
     ports:
       - "5000:5000"
     environment:
