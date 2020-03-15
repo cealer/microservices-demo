@@ -4,3 +4,8 @@
 !README.md
 !requirements.txt
 !.gitignore
+!Dockerfile
+!linear_regression.ipynb
+!model_pickle
+!salaries.csv
+!uwsgi.ini
