@@ -45,17 +45,17 @@ services:
     build:
       context: ./PredictSalariesService
     ports:
-      - "5000:5000"
+      - "5000:80"
     environment:
       RABBITMQ_URI: "amqp://admin:password12347@rabbitmq:5672"
-      
+      FLASK_ENV: Production
     restart: on-failure
     depends_on:
       - "rabbitmq"
   load-test:
     image:  locustio/locust
     environment:
-      TARGET_URL: http://predictions-app_1:5000
+      TARGET_URL: http://predictions-app_1:80
       LOCUSTFILE_PATH:  /mnt/locust/locustfile.py
     ports:
       - "8089:8089"

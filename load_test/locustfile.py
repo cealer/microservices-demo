@@ -1,6 +1,7 @@
 from locust import HttpLocust, TaskSet, task, between
 import json
 
+
 class UserBehavior(TaskSet):
     @task
     def prediction_salary(self):
@@ -8,7 +9,12 @@ class UserBehavior(TaskSet):
         headers = {'content-type': 'application/json'}
         print(payload)
         r = self.client.post("/predictions", data=json.dumps(payload),
-                             headers=headers, catch_response=True)
+                             headers=headers)
+
+    @task
+    def test_get(self):
+        r = self.client.get("/predictions/test")
+
 
 class WebApp(HttpLocust):
     task_set = UserBehavior
