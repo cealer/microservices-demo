@@ -1,6 +1,14 @@
 ﻿version: '3.4'
 
 services:
+
+  redis:
+    image: bitnami/redis
+    ports:
+      - "6379:6379"
+    environment: 
+      REDIS_PASSWORD: "password123" 
+
   rabbitmq:
     image: rabbitmq:3.6.5-management
     ports:
@@ -48,10 +56,15 @@ services:
       - "5000:80"
     environment:
       RABBITMQ_URI: "amqp://admin:password12347@rabbitmq:5672"
-      FLASK_ENV: Production
+      FLASK_ENV: "Production"
+      REDIS_URI: "redis"
+      REDIS_PASSWORD: "password123"
+      REDIS_PORT: 6379
+      REDIS_DB: "0"
     restart: on-failure
     depends_on:
       - "rabbitmq"
+ 
   load-test:
     image:  locustio/locust
     environment:
