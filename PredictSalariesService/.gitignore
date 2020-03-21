@@ -1,11 +1,10 @@
 /*
-/prediction-api/__pycache__/*
-!/prediction-api
+/app/__pycache__/*
+!/app
 !README.md
 !requirements.txt
 !.gitignore
 !Dockerfile
 !linear_regression.ipynb
-!model_pickle
 !salaries.csv
-!uwsgi.ini
+!entrypoint.sh
