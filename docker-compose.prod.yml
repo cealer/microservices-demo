@@ -22,7 +22,14 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5   
-
+      deploy:
+        resources:
+          limits:
+            cpus: '0.50'
+            memory: 50M
+          reservations:
+            cpus: '0.25'
+            memory: 20M
   mongo:
     image: mongo
     ports:
@@ -30,12 +37,20 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example  
-
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
   history-service-api:
+    image: cealer/history-service-api
     ports:
       - "61945:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
       - Database=RecordsDb
       - MongoDBUri=mongodb://root:example@mongo:27017
@@ -44,8 +59,16 @@ services:
       - rabbitmq
     links:
       - rabbitmq
-
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
   predictions-app:
+    image: cealer/prediction-salary-service
     ports:
       - "5000:80"
     environment:
@@ -58,4 +81,11 @@ services:
     restart: on-failure
     depends_on:
       - "rabbitmq"
- 
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M 
