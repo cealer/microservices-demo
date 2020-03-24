@@ -8,6 +8,7 @@ class Config(object):
     REDIS_PASSWORD = os.environ['REDIS_PASSWORD']
     REDIS_PORT = os.environ['REDIS_PORT']
     REDIS_DB = os.environ['REDIS_DB']
+    SWAGGER = {"title": "Salary prediction service", "uiversion": 2}
 
 
 class DevelopmentConfig(Config):

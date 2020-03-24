@@ -1,8 +1,10 @@
 import os
 
 from flask import Flask
+from flasgger import Swagger
 import config
 import predictions
+
 
 def create_app(test_config=None):
     # Create and configure the app
@@ -21,5 +23,20 @@ def create_app(test_config=None):
 
     # Register the BluePrints
     app.register_blueprint(predictions.bp)
-
+    # Register swagger
+    swagger_config = {
+        "headers": [],
+        "specs": [
+            {
+                "endpoint": "apispec_1",
+                "route": "/apispec_1.json",
+                "rule_filter": lambda rule: True,
+                "model_filter": lambda tag: True,
+            }
+        ],
+        "static_url_path": "/flasgger_static",
+        "swagger_ui": True,
+        "specs_route": "/swagger/"
+    }
+    swagger = Swagger(app, config=swagger_config)
     return app

@@ -8,11 +8,12 @@ from sklearn.linear_model import LinearRegression
 import records_bus
 import predictions_cache
 from flask.wrappers import Response
+from flasgger import swag_from
 
 bp = Blueprint('predictions', __name__, url_prefix='/predictions')
 
-
 @bp.route('', methods=['POST'])
+@swag_from("docs/predictions.yml")
 def predictions():
 
     fakeUser = '0D9FB199-73A1-4111-8371-78DF782C1AD1'

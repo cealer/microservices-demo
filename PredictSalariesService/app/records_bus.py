@@ -11,10 +11,12 @@ class Records_bus:
         self.uri = uri
         self.uriRabbimq = current_app.config['RABBITMQ_URI']
 
-    def publish(self):
+    def connect(self):
         parameters = pika.URLParameters(self.uriRabbimq)
         connection = pika.BlockingConnection(parameters)
         channel = connection.channel()
+
+    def publish(self):
 
         data = {
             "userId": self.userId,

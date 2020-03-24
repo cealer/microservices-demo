@@ -1,0 +1,29 @@
+---
+tags:
+    - Predictions
+summary: "Make a salary prediction given a year's experience."
+description: Return a salary prediction given your experience's years.
+consumes:
+    - "application/json"
+produces:
+    - "application/json"
+parameters:
+    - name: body
+      in: body
+      required: true
+      schema:
+        required:
+          - experience
+        properties:
+          experience:
+            type: number
+            description: Year's experience
+            default: 1
+definitions:
+  experience:
+    type: number
+responses:
+  200:
+    description: prediction successfull.
+    examples:
+      experience: [12000.55]
