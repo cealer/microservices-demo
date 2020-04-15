@@ -46,7 +46,7 @@ services:
           cpus: '0.25'
           memory: 20M
   history-service-api:
-    image: cealer/history-service-api
+    image: cealer/history-service-app
     ports:
       - "61945:80"
     environment:
