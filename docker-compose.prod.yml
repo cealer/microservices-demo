@@ -37,14 +37,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example  
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 50M
-        reservations:
-          cpus: '0.25'
-          memory: 20M
   history-service-api:
     image: cealer/history-service-app
     ports:
@@ -67,6 +59,11 @@ services:
         reservations:
           cpus: '0.25'
           memory: 20M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://rabbitmq:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   predictions-app:
     image: cealer/prediction-salary-service
     ports:
