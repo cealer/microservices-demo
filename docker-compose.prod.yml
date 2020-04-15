@@ -8,7 +8,6 @@ services:
       - "6379:6379"
     environment: 
       REDIS_PASSWORD: "password123" 
-
   rabbitmq:
     image: rabbitmq:3.6.5-management
     ports:
