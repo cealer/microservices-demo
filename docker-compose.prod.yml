@@ -17,19 +17,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: "admin"
       RABBITMQ_DEFAULT_PASS: "password12347"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://rabbitmq:15672"]
-      interval: 30s
-      timeout: 10s
-      retries: 5   
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 50M
-        reservations:
-          cpus: '0.25'
-          memory: 20M
   mongo:
     image: mongo
     ports:
