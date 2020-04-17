@@ -59,5 +59,6 @@ services:
       REDIS_PASSWORD: "password123"
       REDIS_PORT: 6379
       REDIS_DB: "0"
+      CORS: "http://spa-client"
     depends_on:
       - "rabbitmq"

@@ -3,7 +3,6 @@ import sys
 import json
 from flask import current_app
 
-
 class Records_bus:
     def __init__(self, userId, description, uri):
         self.userId = userId
@@ -11,12 +10,10 @@ class Records_bus:
         self.uri = uri
         self.uriRabbimq = current_app.config['RABBITMQ_URI']
 
-    def connect(self):
+    def publish(self):
         parameters = pika.URLParameters(self.uriRabbimq)
         connection = pika.BlockingConnection(parameters)
         channel = connection.channel()
-
-    def publish(self):
 
         data = {
             "userId": self.userId,

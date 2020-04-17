@@ -1,0 +1,30 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Cesar Gonzales Aquije</mat-card-title>
+    <mat-card-subtitle>Software Developer</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <p>
+      I have been working as a software developer since 2015. My main development technologies are: .Net Core 3.1,
+      Angular 8/9, MS SQL Server, Docker and Azure Devops.
+    </p>
+
+    <form class="example-form" [formGroup]="itemForm">
+      <mat-form-field class="example-full-width">
+        <mat-label>Years of experience</mat-label>
+        <input matInput placeholder="0" formControlName="yearExperience">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Salary</mat-label>
+        <input matInput placeholder="Write your salary or predict it." formControlName="salary">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <button color="primary" (click)="predictSalary()" mat-raised-button>PREDICT </button>
+    </div>
+  </mat-card-actions>
+</mat-card>

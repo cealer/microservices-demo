@@ -9,7 +9,7 @@ class Config(object):
     REDIS_PORT = os.environ['REDIS_PORT']
     REDIS_DB = os.environ['REDIS_DB']
     SWAGGER = {"title": "Salary prediction service", "uiversion": 2}
-
+    CORS = os.environ['CORS']
 
 class DevelopmentConfig(Config):
     DEBUG = False
