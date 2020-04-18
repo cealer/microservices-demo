@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  predict_salary_uri: 'http://localhost:5000'
+  predict_salary_uri: 'http://localhost:5000',
+  history_uri: 'http://localhost:61945'
 };
 
 /*

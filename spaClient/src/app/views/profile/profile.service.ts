@@ -11,15 +11,24 @@ import { SalaryPredictionResponse } from 'src/app/shared/models/salary-predictio
 export class ProfileService {
 
   private salaryPredictionURI = environment.predict_salary_uri;
+  private historyURI = environment.history_uri;
 
   get SalaryPredicionRequestURI(): string {
     return `${this.salaryPredictionURI}/predictions`;
+  }
+
+  get RecordsURI(): string {
+    return `${this.historyURI}/api/v1/records`;
   }
 
   constructor(private httpClient: HttpClient) { }
 
   PredictionSalarayRequest(salaryPrediction: SalaryPrediction) {
     return this.httpClient.post(this.SalaryPredicionRequestURI, salaryPrediction);
+  }
+
+  GetAllRecords(skip: number = 0, limit: number = 10) {
+    return this.httpClient.get(`${this.RecordsURI}?skip=${skip}&limit=${limit}`);
   }
 
 }

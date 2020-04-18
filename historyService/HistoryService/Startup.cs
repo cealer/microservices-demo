@@ -28,10 +28,23 @@ namespace HistoryService.API
         }
 
         public IConfiguration Configuration { get; }
+        readonly string AllowSpecificOrigins = "DefaulCors";
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins(Configuration["CORS"])
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
+
             services.AddControllers()
                         .AddNewtonsoftJson(
                 options => options.UseMemberCasing());
@@ -64,7 +77,7 @@ namespace HistoryService.API
             // Consumer dependencies should be scoped
             //services.AddScoped<SomeConsumerDependency>();
 
-        // local function to create the bus
+            // local function to create the bus
             IBusControl CreateBus(IServiceProvider serviceProvider)
             {
                 return Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -106,6 +119,8 @@ namespace HistoryService.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(AllowSpecificOrigins);
 
             app.UseAuthorization();
 

@@ -42,6 +42,7 @@ services:
       - Database=RecordsDb
       - MongoDBUri=mongodb://root:example@mongo:27017
       - RABBITMQ_URI=amqp://admin:password12347@rabbitmq:5672
+      - CORS=http://localhost:4200
     depends_on:
       - rabbitmq
     links:
