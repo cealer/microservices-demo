@@ -3,6 +3,7 @@ import { ProfileService } from 'src/app/views/profile/profile.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { SalaryPrediction } from '../../models/salary-prediction.model';
 import { SalaryPredictionResponse } from '../../models/salary-prediction-response.model';
+import { WsRecordService } from '../../service/ws-record.service';
 
 @Component({
   selector: 'app-user-info',
@@ -11,7 +12,7 @@ import { SalaryPredictionResponse } from '../../models/salary-prediction-respons
 })
 export class UserInfoComponent implements OnInit {
 
-  constructor(private profileService: ProfileService, private formBuilder: FormBuilder) { }
+  constructor(private profileService: ProfileService, private formBuilder: FormBuilder, private wsRecordService: WsRecordService) { }
 
   itemForm: FormGroup;
 
@@ -34,6 +35,7 @@ export class UserInfoComponent implements OnInit {
 
   setSalary(salaryValue: number) {
     this.itemForm.controls.salary.setValue(salaryValue);
+    // this.wsRecordService.salaryPredicted();
   }
 
   predictSalary() {

@@ -10,11 +10,13 @@
   <ItemGroup>
     <PackageReference Include="MassTransit.AspNetCore" Version="6.2.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="6.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
     <PackageReference Include="MongoDB.Bson" Version="2.10.0" />
     <PackageReference Include="MongoDB.Driver.Core" Version="2.10.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="ServiceStack.Redis" Version="5.8.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
 

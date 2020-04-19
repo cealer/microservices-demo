@@ -43,6 +43,10 @@ services:
       - MongoDBUri=mongodb://root:example@mongo:27017
       - RABBITMQ_URI=amqp://admin:password12347@rabbitmq:5672
       - CORS=http://localhost:4200
+      - redis:connection=redis
+      - redis:password=password123
+      - redis:port=6379
+      - redis:channel=ws:messages
     depends_on:
       - rabbitmq
     links:

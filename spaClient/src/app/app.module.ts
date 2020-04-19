@@ -12,6 +12,7 @@ import { UserInfoComponent } from './shared/components/user-info/user-info.compo
 import { RecordsComponent } from './shared/components/records/records.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { WsRecordService } from './shared/service/ws-record.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [WsRecordService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

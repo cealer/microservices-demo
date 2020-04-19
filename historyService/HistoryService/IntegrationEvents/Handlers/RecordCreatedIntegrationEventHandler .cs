@@ -10,16 +10,25 @@ namespace HistoryService.API.IntegrationEvents.Handlers
         IConsumer<RecordCreatedIntegrationEvent>
     {
         private readonly IRecordsService _recordsService;
+        private readonly IRecordEventsService _recordEventsService;
 
-        public RecordCreatedIntegrationEventHandler(IRecordsService recordsService)
+        public RecordCreatedIntegrationEventHandler(IRecordsService recordsService, IRecordEventsService recordEventsService)
         {
             _recordsService = recordsService;
+            _recordEventsService = recordEventsService;
         }
 
         public async Task Consume(ConsumeContext<RecordCreatedIntegrationEvent> context)
         {
             var record = new Records(context.Message.Description, context.Message.UserId, context.Message.Uri);
-            await _recordsService.AddRecordsAsync(record);
+
+            var result = await _recordsService.AddRecordsAsync(record);
+
+            if (result)
+            {
+                _recordEventsService.PublishNewRecordCreated(record);
+            }
+
         }
     }
 }

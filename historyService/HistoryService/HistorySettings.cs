@@ -4,6 +4,5 @@
     {
         public string Database { get; set; }
         public string MongoDBUri { get; set; }
-        public string RabbitmqURI { get; set; }
     }
 }

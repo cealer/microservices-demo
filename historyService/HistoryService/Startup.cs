@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson.Serialization.Conventions;
+using ServiceStack.Redis;
 
 namespace HistoryService.API
 {
@@ -62,6 +63,7 @@ namespace HistoryService.API
             });
 
             services.AddScoped<IRecordsService, RecordsService>();
+            services.AddScoped<IRecordEventsService, RecordEventsService>();
             services.AddScoped<IRecordRepository, RecordRepository>();
 
             // Register the Swagger generator, defining one or more Swagger documents
@@ -105,6 +107,15 @@ namespace HistoryService.API
 
             // configures MassTransit to integrate with the built-in dependency injection
             services.AddMassTransit(CreateBus, ConfigureMassTransit);
+
+            services.AddDistributedRedisCache(option =>
+            {
+                option.Configuration = Configuration["redis:connection"];
+                option.ConfigurationOptions.Password = Configuration["redis:password"];
+                option.InstanceName = "master";
+            });
+
+            services.AddScoped<IRedisClient>(s => new RedisClient(Configuration["redis:connection"], int.Parse(Configuration["redis:port"]), password: Configuration["redis:password"]));
 
         }
 
