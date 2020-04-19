@@ -68,4 +68,18 @@ services:
       - "8089:8089"
     volumes:
       - ./load_test:/mnt/locust
+
+  ws-server:
+    build:
+      context: ./ws
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+
+  spa-client:
+    build:
+      context: ./spaClient
+      dockerfile: ./Dockerfile
+    ports:
+      - "8888:80"  
    

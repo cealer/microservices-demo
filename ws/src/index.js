@@ -2,13 +2,13 @@ const WebSocket = require("ws");
 const redis = require("redis");
 
 const subscriber = redis.createClient({
-  url: "redis://localhost:6379",
-  password: "password123"
+  url: `redis://${process.env.redis_uri}:${process.env.redis_port}`,
+  password: `${process.env.redis_password}`
 });
 
 const publisher = subscriber.duplicate();
 
-const WS_CHANNEL = "ws:messages";
+const WS_CHANNEL = `${process.env.redis_channel}`;
 
 const wss = new WebSocket.Server({
   port: +process.argv[4] || 8080

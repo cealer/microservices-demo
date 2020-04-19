@@ -50,7 +50,11 @@ docker-compose down
 ```
 
 # Angular Client
-Coming soon ...
+ _Open Angular client_
+
+ ``` 
+ http://localhost:8888
+ ```
 
 ### Deployment 📦
 ```

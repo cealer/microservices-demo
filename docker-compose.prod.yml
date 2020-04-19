@@ -33,6 +33,11 @@ services:
       - Database=RecordsDb
       - MongoDBUri=mongodb://root:example@mongo:27017
       - RABBITMQ_URI=amqp://admin:password12347@rabbitmq:5672
+      - CORS=http://spa-client
+      - redis:connection=redis
+      - redis:password=password123
+      - redis:port=6379
+      - redis:channel=ws:messages
     depends_on:
       - rabbitmq
     deploy:
@@ -62,3 +67,16 @@ services:
       CORS: "http://spa-client"
     depends_on:
       - "rabbitmq"
+
+  ws-server:
+    ports:
+      - "8080:8080"
+    environment:
+      redis_uri: "redis"
+      redis_password: "password123"
+      redis_port: 6379
+      redis_channel: "ws:messages"
+
+  spa-client:
+    ports:
+      - "8888:80"

@@ -42,7 +42,7 @@ services:
       - Database=RecordsDb
       - MongoDBUri=mongodb://root:example@mongo:27017
       - RABBITMQ_URI=amqp://admin:password12347@rabbitmq:5672
-      - CORS=http://localhost:4200
+      - CORS=http://localhost:8888
       - redis:connection=redis
       - redis:password=password123
       - redis:port=6379
@@ -62,8 +62,22 @@ services:
       REDIS_PASSWORD: "password123"
       REDIS_PORT: 6379
       REDIS_DB: "0"
-      CORS: "http://localhost:4200"
+      CORS: "http://localhost:8888"
     restart: on-failure
     depends_on:
       - "rabbitmq"
- 
+  
+  ws-server:
+    ports:
+      - "8080:8080"
+    environment:
+      redis_uri: "redis"
+      redis_password: "password123"
+      redis_port: 6379
+      redis_channel: "ws:messages"
+    depends_on:
+      - "redis"
+
+  spa-client:
+    ports:
+      - "8888:80"
