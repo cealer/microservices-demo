@@ -56,6 +56,8 @@ docker-compose down
  http://localhost:8888
  ```
 
+![Angular client](https://github.com/cealer/microservices-demo/blob/master/app_angular.png?raw=true)
+
 ### Deployment 📦
 ```
 docker stack deploy -c compose-file docker-compose.prod.yml salary_app
