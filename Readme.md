@@ -58,6 +58,12 @@ docker-compose down
 
 ![Angular client](https://github.com/cealer/microservices-demo/blob/master/app_angular.png?raw=true)
 
+### To do
+
+- Api gateway
+- Authentication
+- ssl
+
 ### Deployment 📦
 ```
 docker stack deploy -c compose-file docker-compose.prod.yml salary_app
