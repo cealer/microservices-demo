@@ -33,7 +33,7 @@ services:
       - Database=RecordsDb
       - MongoDBUri=mongodb://root:example@mongo:27017
       - RABBITMQ_URI=amqp://admin:password12347@rabbitmq:5672
-      - CORS=http://spa-client
+      - CORS=*
       - redis:connection=redis
       - redis:password=password123
       - redis:port=6379
@@ -53,6 +53,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+
   predictions-app:
     image: cealer/prediction-salary-service
     ports:
@@ -64,11 +65,12 @@ services:
       REDIS_PASSWORD: "password123"
       REDIS_PORT: 6379
       REDIS_DB: "0"
-      CORS: "http://spa-client"
+      CORS: "*"
     depends_on:
       - "rabbitmq"
 
   ws-server:
+    image: "cealer/ws-server"
     ports:
       - "8080:8080"
     environment:
@@ -78,5 +80,6 @@ services:
       redis_channel: "ws:messages"
 
   spa-client:
+    image: "cealer/spa-client"
     ports:
       - "8888:80"
