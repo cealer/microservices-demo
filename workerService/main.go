@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"github.com/streadway/amqp"
 	"log"
+	"os"
 	"publishservice"
 	"time"
 )
 
 var (
-	uri          = flag.String("uri", "amqp://admin:password12347@rabbitmq:5672/", "AMQP URI")
+	uri          = flag.String("uri", os.Getenv("uri"), "AMQP URI")
 	exchange     = flag.String("exchange", "HistoryService.API.IntegrationEvents.Events:RecordCreatedIntegrationEvent", "Durable, non-auto-deleted AMQP exchange name")
 	exchangeType = flag.String("exchange-type", "direct", "Exchange type - direct|fanout|topic|x-custom")
 	queue        = flag.String("queue", "predictions", "Ephemeral AMQP queue name")
@@ -163,7 +164,8 @@ func handle(deliveries <-chan amqp.Delivery, done chan error) {
 			d.DeliveryTag,
 			d.Body,
 		)
-		publishservice.Service.PublishString("ws:messages", string(d.Body))
+
+		publishservice.Service.PublishString(string(d.Body))
 		d.Ack(false)
 	}
 

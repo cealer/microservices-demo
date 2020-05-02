@@ -80,8 +80,11 @@ services:
 
   worker:
     environment:
-      uri: "amqp://admin:password12347@redis:5672"
-
+      - uri=amqp://admin:password12347@rabbitmq:5672
+      - redis_uri=redis
+      - redis_password=password123
+      - redis_port=6379
+      - redis_channel=ws:messages
   spa-client:
     ports:
       - "8888:80"

@@ -1,8 +1,9 @@
 package publishservice
 
 import (
-	"encoding/json"
+	"fmt"
 	"gopkg.in/redis.v2"
+	"os"
 )
 
 // PubSub is
@@ -14,10 +15,13 @@ type PubSub struct {
 var Service *PubSub
 
 func init() {
+
+	uri := fmt.Sprintf("%v:%v", os.Getenv("redis_uri"), os.Getenv("redis_port"))
+
 	var client *redis.Client
 	client = redis.NewTCPClient(&redis.Options{
-		Addr:     "redis:6379",
-		Password: "password123",
+		Addr:     uri,
+		Password: os.Getenv("redis_password"),
 		DB:       0,
 		PoolSize: 10,
 	})
@@ -25,20 +29,6 @@ func init() {
 }
 
 // PublishString a message with a string as payload
-func (ps *PubSub) PublishString(channel, message string) *redis.IntCmd {
-	return ps.client.Publish(channel, message)
-}
-
-// Publish is a func to send message to redis
-func (ps *PubSub) Publish(channel string, message interface{}) *redis.IntCmd {
-	// TODO reflect if interface{} type is string, Publish as-is
-
-	jsonBytes, err := json.Marshal(message)
-
-	if err != nil {
-		panic(err)
-	}
-
-	messageString := string(jsonBytes)
-	return ps.client.Publish(channel, messageString)
+func (ps *PubSub) PublishString(message string) *redis.IntCmd {
+	return ps.client.Publish(os.Getenv("redis_channel"), message)
 }
