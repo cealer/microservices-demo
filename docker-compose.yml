@@ -78,6 +78,10 @@ services:
     depends_on:
       - "redis"
 
+  worker:
+    environment:
+      uri: "amqp://admin:password12347@redis:5672"
+
   spa-client:
     ports:
       - "8888:80"

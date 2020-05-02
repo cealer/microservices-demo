@@ -76,6 +76,11 @@ services:
     ports:
       - "8080:8080"
 
+  worker:
+    build:
+      context: ./workerService
+      dockerfile: ./Dockerfile
+
   spa-client:
     build:
       context: ./spaClient

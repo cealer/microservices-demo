@@ -60,7 +60,7 @@ docker-compose down
 
 ### Deployment 📦
 ```
-docker stack deploy -c compose-file docker-compose.prod.yml salary_app
+docker stack deploy  -c docker-compose.prod.yml --with-registry-auth salary-app
 ```
 ### License 📄
 

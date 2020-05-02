@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { Subject } from 'rxjs';
-
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +18,7 @@ export class WsRecordService {
   constructor() { }
 
   connect() {
-    this.myWebSocket = webSocket('ws://localhost:8080');
+    this.myWebSocket = webSocket(`ws://${environment.ws_uri}:${environment.ws_port}`);
   }
 
   subscribe() {

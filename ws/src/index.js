@@ -15,6 +15,7 @@ const wss = new WebSocket.Server({
 });
 
 subscriber.on("message", (channel, message) => {
+  console.log(message);
   if (channel === WS_CHANNEL) {
     wss.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {

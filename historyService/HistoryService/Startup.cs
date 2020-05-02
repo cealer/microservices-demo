@@ -80,33 +80,33 @@ namespace HistoryService.API
             //services.AddScoped<SomeConsumerDependency>();
 
             // local function to create the bus
-            IBusControl CreateBus(IServiceProvider serviceProvider)
-            {
-                return Bus.Factory.CreateUsingRabbitMq(cfg =>
-                {
-                    cfg.Host(Configuration["RABBITMQ_URI"]);
+            // IBusControl CreateBus(IServiceProvider serviceProvider)
+            // {
+            //     return Bus.Factory.CreateUsingRabbitMq(cfg =>
+            //     {
+            //         cfg.Host(Configuration["RABBITMQ_URI"]);
 
-                    cfg.ClearMessageDeserializers();
+            //         cfg.ClearMessageDeserializers();
 
-                    cfg.UseRawJsonSerializer();
+            //         cfg.UseRawJsonSerializer();
 
-                    cfg.ReceiveEndpoint("history-service", ep =>
-                    {
-                        ep.PrefetchCount = 16;
+            //         cfg.ReceiveEndpoint("history-service", ep =>
+            //         {
+            //             ep.PrefetchCount = 16;
 
-                        ep.ConfigureConsumer<RecordCreatedIntegrationEventHandler>(serviceProvider);
-                    });
-                });
-            }
+            //             ep.ConfigureConsumer<RecordCreatedIntegrationEventHandler>(serviceProvider);
+            //         });
+            //     });
+            // }
 
-            // local function to configure consumers
-            void ConfigureMassTransit(IServiceCollectionConfigurator configurator)
-            {
-                configurator.AddConsumer<RecordCreatedIntegrationEventHandler>();
-            }
+            // // local function to configure consumers
+            // void ConfigureMassTransit(IServiceCollectionConfigurator configurator)
+            // {
+            //     configurator.AddConsumer<RecordCreatedIntegrationEventHandler>();
+            // }
 
             // configures MassTransit to integrate with the built-in dependency injection
-            services.AddMassTransit(CreateBus, ConfigureMassTransit);
+            // services.AddMassTransit(CreateBus, ConfigureMassTransit);
 
             services.AddDistributedRedisCache(option =>
             {
