@@ -26,6 +26,13 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example  
 
+  api-gateway:
+    build:
+      context: ./ApiGateway
+      dockerfile: ./ApiGateway/Dockerfile
+    ports:
+      - "55995:80"
+
   history-service-api:
     build:
       context: ./historyService

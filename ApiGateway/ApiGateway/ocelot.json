@@ -1,0 +1,55 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/v1/{everything}",
+      "DownstreamScheme": "http",
+      "SwaggerKey": "history-service-api",
+      "ServiceName": "history-service-api",
+      "UpstreamPathTemplate": "/history-service-api/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/{everything}",
+      "DownstreamScheme": "http",
+      "SwaggerKey": "prediction-api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/prediction-api/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ]
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "history-service-api",
+      "Config": [
+        {
+          "Name": "History service API",
+          "Version": "v1",
+          "Url": "http://history-service-api:80/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "prediction-api",
+      "Config": [
+        {
+          "Name": "Predictions API",
+          "Version": "v1",
+          "Url": "http://localhost:5000/apispec_1.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://api-gateway",
+    "ServiceDiscoveryProvider": {
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
+}

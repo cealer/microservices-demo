@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Consul" Version="0.7.2.6" />
     <PackageReference Include="MassTransit.AspNetCore" Version="6.2.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="6.2.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />

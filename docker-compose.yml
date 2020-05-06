@@ -41,12 +41,16 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - Database=RecordsDb
       - MongoDBUri=mongodb://root:example@mongo:27017
-      - RABBITMQ_URI=amqp://admin:password12347@rabbitmq:5672
       - CORS=http://localhost:8888
       - redis:connection=redis
       - redis:password=password123
       - redis:port=6379
       - redis:channel=ws:messages
+      - consulConfig:serviceDiscoveryAddress=http://consul:8500
+      - consulConfig:serviceName=history-service-api
+      - consulConfig:serviceId=1
+      - consulConfig:serviceAddress=http://history-service-api:80
+      - consulConfig:tags=["NetCore 3.1","WEB API ","C#"]
     depends_on:
       - rabbitmq
     links:
@@ -88,3 +92,10 @@ services:
   spa-client:
     ports:
       - "8888:80"
+  consul:
+    image: consul
+    ports:
+       - "8500:8500"
+  api-gateway:
+
+
