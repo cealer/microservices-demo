@@ -8,6 +8,7 @@ services:
       - "6379:6379"
     environment: 
       REDIS_PASSWORD: "password123" 
+  
   rabbitmq:
     image: rabbitmq:3.6.5-management
     ports:
@@ -16,6 +17,7 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: "admin"
       RABBITMQ_DEFAULT_PASS: "password12347"
+
   mongo:
     image: mongo
     ports:
@@ -23,6 +25,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example  
+  
   history-service-api:
     image: cealer/history-service-app
     ports:
@@ -83,3 +86,10 @@ services:
     image: "cealer/spa-client"
     ports:
       - "8888:80"
+    environment:
+      - API_GATEWAY=http://localhost:9090
+      - GATEWAY_HOST=localhost:9090
+
+  api-gateway:
+    ports:
+      - "9090:80"

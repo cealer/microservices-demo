@@ -4,8 +4,10 @@ FROM golang
 
 RUN go get github.com/streadway/amqp
 RUN go get gopkg.in/redis.v2
+RUN go get go.mongodb.org/mongo-driver/mongo
 
 COPY ./main.go ./src
+COPY ./recordsService.go ./src
 COPY ./publishservice/ ./src/publishservice
 
 WORKDIR /go/src

@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { Subject } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Configuration } from '../helpers/configuration.helper';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,10 +15,10 @@ export class WsRecordService {
   // Observable string streams
   recordCreated$ = this.recordCreatedSource.asObservable();
 
-  constructor() { }
+  constructor(private configuration: Configuration) { }
 
   connect() {
-    this.myWebSocket = webSocket(`ws://${environment.ws_uri}:${environment.ws_port}`);
+    this.myWebSocket = webSocket(`${this.configuration.ApiWs}`);
   }
 
   subscribe() {

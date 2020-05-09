@@ -4,22 +4,38 @@
       "DownstreamPathTemplate": "/api/v1/{everything}",
       "DownstreamScheme": "http",
       "SwaggerKey": "history-service-api",
-      "ServiceName": "history-service-api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "history-service-api",
+          "Port": 80
+        }
+      ],
       "UpstreamPathTemplate": "/history-service-api/{everything}",
       "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ]
     },
     {
-      "DownstreamPathTemplate": "/api/v1/{everything}",
+      "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       "SwaggerKey": "prediction-api",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5000
+          "Host": "predictions-app",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/prediction-api/{everything}",
       "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/",
+      "UpstreamPathTemplate": "/",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ws-server",
+          "Port": 8080
+        }
+      ]
     }
   ],
   "SwaggerEndPoints": [
@@ -29,7 +45,7 @@
         {
           "Name": "History service API",
           "Version": "v1",
-          "Url": "http://history-service-api:80/swagger/v1/swagger.json"
+          "Url": "http://history-service-api/swagger/v1/swagger.json"
         }
       ]
     },
@@ -39,17 +55,12 @@
         {
           "Name": "Predictions API",
           "Version": "v1",
-          "Url": "http://localhost:5000/apispec_1.json"
+          "Url": "http://predictions-app/apispec_1.json"
         }
       ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://api-gateway",
-    "ServiceDiscoveryProvider": {
-      "Host": "consul",
-      "Port": 8500,
-      "Type": "Consul"
-    }
+    "BaseUrl": "http://api-gateway"
   }
 }

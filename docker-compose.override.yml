@@ -30,8 +30,7 @@ services:
     build:
       context: ./ApiGateway
       dockerfile: ./ApiGateway/Dockerfile
-    ports:
-      - "55995:80"
+
 
   history-service-api:
     build:
@@ -69,7 +68,7 @@ services:
   load-test:
     image:  locustio/locust
     environment:
-      TARGET_URL: http://predictions-app_1:80
+      TARGET_URL: http://api-gateway
       LOCUSTFILE_PATH:  /mnt/locust/locustfile.py
     ports:
       - "8089:8089"

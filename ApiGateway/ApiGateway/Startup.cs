@@ -13,7 +13,6 @@ using Microsoft.OpenApi.Models;
 using MMLib.Ocelot.Provider.AppConfiguration;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Ocelot.Provider.Consul;
 
 namespace ApiGateway
 {
@@ -29,7 +28,7 @@ namespace ApiGateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOcelot().AddConsul();
+            services.AddOcelot();
 
             services.AddControllers();
 
@@ -55,7 +54,9 @@ namespace ApiGateway
             app.UseSwaggerForOcelotUI(Configuration, opt =>
             {
                 opt.PathToSwaggerGenerator = "/swagger/docs";
-            }).UseOcelot().Wait();
+            })
+                .UseWebSockets()
+                .UseOcelot().Wait();
         }
     }
 }

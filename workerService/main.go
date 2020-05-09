@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"github.com/streadway/amqp"
@@ -51,6 +52,13 @@ type Consumer struct {
 	channel *amqp.Channel
 	tag     string
 	done    chan error
+}
+
+// Message from rabbitmq
+type Message struct {
+	UserId      string
+	Description string
+	Uri         string
 }
 
 // NewConsumer Create a new Consumer
@@ -166,6 +174,9 @@ func handle(deliveries <-chan amqp.Delivery, done chan error) {
 		)
 
 		publishservice.Service.PublishString(string(d.Body))
+		var message Message
+		json.Unmarshal(d.Body, &message)
+		ServiceMongo.saveRecord(message.Description, message.Uri, message.UserId)
 		d.Ack(false)
 	}
 

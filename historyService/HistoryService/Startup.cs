@@ -1,26 +1,12 @@
-using System;
 using System.IO.Compression;
-using System.Linq;
-using System.Reflection;
-using Consul;
-using GreenPipes.Configurators;
-using HistoryService.API.Infrastructure.Consul;
 using HistoryService.API.Infrastructure.Repositories;
 using HistoryService.API.Infrastructure.Services;
-using HistoryService.API.IntegrationEvents.Handlers;
-using MassTransit;
-using MassTransit.AspNetCoreIntegration;
-using MassTransit.ExtensionsDependencyInjectionIntegration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson.Serialization.Conventions;
 using ServiceStack.Redis;
@@ -58,9 +44,6 @@ namespace HistoryService.API
                 options => options.UseMemberCasing());
 
             services.Configure<HistorySettings>(Configuration);
-
-            ConfigureConsul(services);
-
 
             //Compression
             services.AddResponseCompression(options =>
@@ -163,12 +146,6 @@ namespace HistoryService.API
 
         }
 
-        private void ConfigureConsul(IServiceCollection services)
-        {
-            var serviceConfig = Configuration.GetServiceConfig();
-
-            services.RegisterConsulServices(serviceConfig);
-        }
 
     }
 }
