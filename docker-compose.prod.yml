@@ -73,7 +73,7 @@ services:
       - "rabbitmq"
 
   ws-server:
-    image: "cealer/ws-server"
+    image: cealer/ws-server
     ports:
       - "8080:8080"
     environment:
@@ -83,13 +83,37 @@ services:
       redis_channel: "ws:messages"
 
   spa-client:
-    image: "cealer/spa-client"
+    image: cealer/spa-client
     ports:
       - "8888:80"
     environment:
       - API_GATEWAY=http://localhost:9090
       - GATEWAY_HOST=localhost:9090
 
+ worker:
+    image: cealer/worker
+    environment:
+      - uri=amqp://admin:password12347@rabbitmq:5672
+      - redis_uri=redis
+      - redis_password=password123
+      - redis_port=6379
+      - redis_channel=ws:messages
+    depends_on:
+      - rabbitmq
+      - mongo
+      - redis
+
   api-gateway:
+    image: cealer/api-gateway
     ports:
       - "9090:80"
+
+  load-test:
+  image:  locustio/locust
+  environment:
+    TARGET_URL: http://api-gateway
+    LOCUSTFILE_PATH:  /mnt/locust/locustfile.py
+  ports:
+    - "8089:8089"
+  volumes:
+    - ./load_test:/mnt/locust
