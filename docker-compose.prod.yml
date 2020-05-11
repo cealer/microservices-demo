@@ -90,7 +90,7 @@ services:
       - API_GATEWAY=http://localhost:9090
       - GATEWAY_HOST=localhost:9090
 
- worker:
+  worker:
     image: cealer/worker
     environment:
       - uri=amqp://admin:password12347@rabbitmq:5672
