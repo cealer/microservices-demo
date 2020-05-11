@@ -109,11 +109,11 @@ services:
       - "9090:80"
 
   load-test:
-  image:  locustio/locust
-  environment:
-    TARGET_URL: http://api-gateway
-    LOCUSTFILE_PATH:  /mnt/locust/locustfile.py
-  ports:
-    - "8089:8089"
-  volumes:
-    - ./load_test:/mnt/locust
+    image:  locustio/locust
+    environment:
+      TARGET_URL: http://api-gateway
+      LOCUSTFILE_PATH:  /mnt/locust/locustfile.py
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./load_test:/mnt/locust
